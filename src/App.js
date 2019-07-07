@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import DisplayUser from './components/DisplayUser';
+import AddUser from './components/AddUser';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    state = {
+        users:[]
+    }
+    updateUser = (newUser)=>{
+        const allUser = this.state.users;
+        this.setState({users : [...allUser, newUser]});
+    }
+    
+    render(){
+    return (
+        <>
+            <div className='header'>USER APP</div>
+            <div className='main'>
+                <AddUser click={this.updateUser} />
+                <div className="allUser">
+                    {this.state.users.map((item, index)=> (<DisplayUser {...item} key={index} />))}
+                </div>
+            </div>
+        </>
+    );
+    }
 }
 
 export default App;
